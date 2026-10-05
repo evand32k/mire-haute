@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mire Haute – Astuces pour progresser sur les FPS</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1f6;--card:#fff;--ink:#0f1530;--mute:#55607a;--line:#d3d9e6;--acc:#2f4bff;--acc-ink:#fff;--hi:#ffe14d;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1530;--card:#182044;--ink:#eef1f6;--mute:#a3adc7;--line:#2c3763;--acc:#7f93ff;--acc-ink:#0f1530}}
+:root[data-theme="dark"]{--bg:#0f1530;--card:#182044;--ink:#eef1f6;--mute:#a3adc7;--line:#2c3763;--acc:#7f93ff;--acc-ink:#0f1530}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.6 "Instrument Sans",system-ui,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.1;margin:0}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.logo{font:800 1.3rem "Bricolage Grotesque",sans-serif}
+.logo i{display:inline-block;width:.8em;height:.8em;border:3px solid var(--acc);border-radius:50%;margin-right:8px;position:relative;vertical-align:-1px}
+.logo i:after{content:"";position:absolute;inset:50% 50%;width:3px;height:3px;background:var(--acc);margin:-1.5px;border-radius:50%}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.hero{padding:36px 0 28px;display:grid;gap:28px;grid-template-columns:1.1fr 1fr;align-items:start}
+.hero h1{font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;letter-spacing:-.02em}
+.hero p{color:var(--mute);max-width:46ch;margin:16px 0 0}
+.tool{background:var(--card);border:2px solid var(--ink);border-radius:6px;padding:20px;box-shadow:6px 6px 0 var(--acc)}
+.tool h2{font-size:1.25rem;margin-bottom:4px}
+.tool small{color:var(--mute)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+label{display:block;font-size:.85rem;color:var(--mute)}
+input,select{width:100%;padding:9px 10px;background:var(--bg);border:1px solid var(--line);border-radius:4px;margin-top:3px}
+.out{margin-top:16px;padding:12px;background:var(--bg);border-radius:4px;border-left:4px solid var(--acc)}
+.out b{font:800 1.5rem "Bricolage Grotesque",sans-serif}
+.out div+div{margin-top:6px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{padding:7px 14px;border:1px solid var(--ink);border-radius:99px;background:none}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.bar input{flex:1;min-width:160px;margin:0}
+.count{color:var(--mute);font-size:.9rem;margin:16px 0}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));padding-bottom:48px}
+.tip{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.tip .g{font-size:.85rem;font-weight:600;color:var(--acc)}
+.tip h3{font-size:1.15rem}
+.tip p{margin:0;color:var(--mute)}
+.tip .more{display:none;border-top:1px dashed var(--line);padding-top:8px;color:var(--ink)}
+.tip.open .more{display:block}
+.acts{display:flex;justify-content:space-between;margin-top:auto;padding-top:6px}
+.link{background:none;border:0;color:var(--acc);padding:4px 0;font-weight:600}
+.fav{background:none;border:0;font-size:1.2rem;padding:4px}
+.empty{padding:40px 0;text-align:center;color:var(--mute)}
+footer{border-top:1px solid var(--line);padding:24px 0 36px;color:var(--mute);font-size:.9rem}
+@media (max-width:760px){.hero{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.tip{transition:border-color .15s}.tip.open{border-color:var(--acc)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div class="logo"><i></i>Mire Haute</div><button class="chip" id="theme" aria-label="Changer de thème">Thème</button></header>
+
+<section class="hero">
+<div>
+<h1>Progresse sur les FPS, sans tricher.</h1>
+<p>Des astuces concrètes pour Valorant, Call of Duty et tous les jeux de tir, plus un convertisseur de sensibilité pour retrouver la même visée d'un jeu à l'autre.</p>
+</div>
+<div class="tool">
+<h2>Convertisseur de sensibilité</h2>
+<small>Garde la même distance de souris pour un tour complet.</small>
+<div class="row">
+<label>Jeu d'origine<select id="gA"></select></label>
+<label>Jeu cible<select id="gB"></select></label>
+<label>DPI de la souris<input id="dpi" type="number" min="100" max="32000" value="800"></label>
+<label>Sensibilité d'origine<input id="sens" type="number" min="0.001" step="0.01" value="0.35"></label>
+</div>
+<div class="out" aria-live="polite">
+<div>Sensibilité à régler : <b id="res">–</b></div>
+<div>Distance pour 360° : <span id="cm">–</span> · eDPI : <span id="edpi">–</span></div>
+</div>
+<small>Valeurs de rotation par jeu approximatives, à affiner en entraînement.</small>
+</div>
+</section>
+
+<div class="bar" role="group" aria-label="Filtres">
+<button class="chip" data-g="Tous" aria-pressed="true">Tous</button>
+<button class="chip" data-g="Général" aria-pressed="false">Général</button>
+<button class="chip" data-g="Valorant" aria-pressed="false">Valorant</button>
+<button class="chip" data-g="Call of Duty" aria-pressed="false">Call of Duty</button>
+<button class="chip" data-g="Favoris" aria-pressed="false">★ Favoris</button>
+<input id="q" type="search" placeholder="Rechercher une astuce" aria-label="Rechercher une astuce">
+</div>
+<div class="count" id="count"></div>
+<main class="grid" id="grid"></main>
+
+<footer>Mire Haute est un site de conseils pour jouer proprement. Aucun logiciel tiers, aucun contournement des protections anti-triche. Les jeux cités appartiennent à leurs éditeurs respectifs.</footer>
+</div>
+
+<script>
+const TIPS=[
+{g:"Général",t:"Échauffe-toi 10 minutes avant de jouer",s:"Un court entraînement à la visée avant tes parties prépare tes mains.",m:"Enchaîne du tracking, du flick et du micro-ajustement dans un aim trainer. Arrête-toi avant la fatigue : la régularité compte plus que la durée."},
+{g:"Général",t:"Place ta mire à hauteur de tête",s:"Ça évite de corriger vers le haut à chaque duel.",m:"Garde le réticule sur la ligne où se trouvent les têtes quand tu avances. Ajuste-le en suivant les angles et les marches, pas à la dernière seconde."},
+{g:"Général",t:"Baisse ta sensibilité",s:"Une visée trop rapide rend tes tirs irréguliers.",m:"Beaucoup de joueurs progressent en passant à une sensibilité qui demande un vrai mouvement du bras. Teste pendant une semaine avant de juger."},
+{g:"Général",t:"Regarde tes propres parties",s:"Revoir tes morts t'apprend plus que jouer dix parties de plus.",m:"Note pour chaque mort : mauvais placement, mauvaise info, duel pris sans soutien ou erreur de visée. Corrige une seule chose à la fois."},
+{g:"Général",t:"Joue avec un casque et soigne l'audio",s:"Les pas et les recharges donnent des informations précieuses.",m:"Un casque stéréo correct suffit. Coupe la musique et baisse les bruits d'ambiance pour mieux entendre les déplacements."},
+{g:"Général",t:"Fais des pauses régulières",s:"Fatigue = visée et décisions dégradées.",m:"Toutes les heures, lève-toi, bois de l'eau et repose tes yeux. Si tu perds trois parties d'affilée en étant énervé, arrête-toi."},
+{g:"Valorant",t:"Arrête-toi avant de tirer",s:"Le tir en mouvement est imprécis, l'arrêt net rend le premier tir fiable.",m:"Relâche ta touche de déplacement, appuie brièvement sur la direction opposée (counter-strafe), puis tire. Entraîne-toi dans le champ de tir."},
+{g:"Valorant",t:"Tire en rafales de 2 à 3 balles",s:"À moyenne et longue distance, la rafale garde le contrôle du recul.",m:"Laisse le recul retomber entre les rafales. Le spray complet convient surtout au corps à corps."},
+{g:"Valorant",t:"Utilise tes compétences en équipe",s:"Une flash lancée au bon moment vaut un duel gagné.",m:"Annonce tes compétences et synchronise-les avec tes coéquipiers : l'un lance, l'autre entre. Garde au moins une capacité pour le retour."},
+{g:"Valorant",t:"Marche pour ne pas être entendu",s:"Marcher silencieusement t'évite de révéler ta position.",m:"Utilise la marche aux angles serrés et quand l'ennemi est proche. Cours seulement quand tu n'as pas besoin de discrétion."},
+{g:"Valorant",t:"Gère l'économie avec ton équipe",s:"Acheter seul quand les autres économisent affaiblit tout le tour.",m:"Communique avant l'achat. Un tour d'économie bien joué prépare deux bons tours plus tard."},
+{g:"Call of Duty",t:"Apprends les rotations de spawn",s:"Savoir où les ennemis apparaissent te donne des kills et de la survie.",m:"Observe d'où arrivent les adversaires après leur réapparition et place-toi sur l'axe. Change de zone quand ils s'adaptent."},
+{g:"Call of Duty",t:"Avance près de tes coéquipiers",s:"Un duel avec un allié proche se termine souvent en ta faveur.",m:"Reste à quelques mètres pour pouvoir venger une mort ou finir un adversaire blessé. Les joueurs isolés meurent plus souvent."},
+{g:"Call of Duty",t:"Élargis ton champ de vision",s:"Un FOV plus grand permet de voir plus de choses sur les côtés.",m:"Augmente-le par paliers et garde la valeur où tu restes à l'aise pour viser. Règle aussi le multiplicateur de visée (ADS) séparément."},
+{g:"Call of Duty",t:"Pré-vise les angles courants",s:"Avoir le réticule déjà placé gagne le duel avant qu'il commence.",m:"Quand tu tournes un coin, garde l'arme orientée vers l'endroit où un ennemi apparaît le plus souvent."}
+];
+const GAMES={"Valorant":0.07,"Counter-Strike 2":0.022,"Call of Duty (approx.)":0.0066,"Overwatch 2":0.0066,"Apex Legends":0.022};
+const $=id=>document.getElementById(id);
+let game="Tous",open=new Set(),favs=new Set();
+try{favs=new Set(JSON.parse(localStorage.getItem("mh_favs")||"[]"))}catch(e){}
+function save(){try{localStorage.setItem("mh_favs",JSON.stringify([...favs]))}catch(e){}}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function render(){
+const q=$("q").value.trim().toLowerCase();
+const list=TIPS.filter(x=>(game==="Tous"||(game==="Favoris"?favs.has(x.t):x.g===game))&&(!q||(x.t+x.s+x.m).toLowerCase().includes(q)));
+$("count").textContent=list.length+(list.length>1?" astuces":" astuce");
+$("grid").innerHTML=list.length?list.map(x=>`<article class="tip ${open.has(x.t)?"open":""}"><span class="g">${esc(x.g)}</span><h3>${esc(x.t)}</h3><p>${esc(x.s)}</p><p class="more">${esc(x.m)}</p><div class="acts"><button class="link" data-o="${esc(x.t)}" aria-expanded="${open.has(x.t)}">${open.has(x.t)?"Réduire":"Lire la suite"}</button><button class="fav" data-f="${esc(x.t)}" aria-label="${favs.has(x.t)?"Retirer des favoris":"Ajouter aux favoris"}">${favs.has(x.t)?"★":"☆"}</button></div></article>`).join(""):`<div class="empty">Aucune astuce trouvée. Change de filtre ou de mot-clé.</div>`;
+}
+$("grid").addEventListener("click",e=>{
+const o=e.target.closest("[data-o]"),f=e.target.closest("[data-f]");
+if(o){const k=o.dataset.o;open.has(k)?open.delete(k):open.add(k);render()}
+if(f){const k=f.dataset.f;favs.has(k)?favs.delete(k):favs.add(k);save();render()}
+});
+document.querySelectorAll(".chip[data-g]").forEach(b=>b.addEventListener("click",()=>{
+game=b.dataset.g;document.querySelectorAll(".chip[data-g]").forEach(c=>c.setAttribute("aria-pressed",c===b));render()}));
+$("q").addEventListener("input",render);
+for(const id of["gA","gB"])$(id).innerHTML=Object.keys(GAMES).map(n=>`<option>${n}</option>`).join("");
+$("gB").selectedIndex=1;
+function calc(){
+const a=GAMES[$("gA").value],b=GAMES[$("gB").value],dpi=+$("dpi").value,s=+$("sens").value;
+if(!(dpi>0&&s>0)){$("res").textContent="–";$("cm").textContent="–";$("edpi").textContent="–";return}
+const inch=360/(a*dpi*s),cm=inch*2.54,t=360/(b*dpi*inch);
+$("res").textContent=t.toFixed(3);$("cm").textContent=cm.toFixed(1)+" cm";$("edpi").textContent=Math.round(dpi*s);
+}
+["gA","gB","dpi","sens"].forEach(id=>$(id).addEventListener("input",calc));
+$("theme").addEventListener("click",()=>{
+const r=document.documentElement,dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+r.dataset.theme=dark?"light":"dark"});
+render();calc();
+</script>
+</body>
+</html>
